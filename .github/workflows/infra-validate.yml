@@ -1,0 +1,35 @@
+name: Request Infra Validate
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.8.8
+
+      - name: Check shell syntax
+        run: bash -n scripts/*.sh
+
+      - name: Validate Docker Compose config
+        run: docker compose --env-file .env.example -f local/docker-compose.yml config >/dev/null
+
+      - name: Validate infrastructure foundation
+        run: make validate
+
