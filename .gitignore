@@ -1,0 +1,35 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# IaC local state, plans, and real variables
+*.tfvars
+!terraform.tfvars.example
+*.tfstate
+*.tfstate.*
+*.tfplan
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+
+# Secrets and credentials
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_ed25519
+credentials.json
+service-account*.json
+*-credentials.json
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+
